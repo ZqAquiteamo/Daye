@@ -1,0 +1,40 @@
+int ** reverse_matrix(int ** matrix,int m,int n,int flag){    //ZTE -- 2016.8.29 the second
+	vector<vector<int> > ret(n,vector<int>(m));
+	int ** res = new int*[n];
+	for(int r = 0; r < n;r++)
+		res[r] = new int[m];
+	vector<vector<int> > vec_maxtrix(m,vector<int>(n,0));
+	int offset = 0;
+	for(int i = 0;i < m && offset < m * n;i++){
+		for(int j = 0;j < n;j++){
+			vec_maxtrix[i][j] = (int)(*(*matrix) + offset);
+			offset++;
+		}
+	}
+	if(flag == 1){
+		for(int x = 0;x < n;x++){
+			vector<int> tmpr;
+			for(int y = m - 1;y >= 0;y--){
+				tmpr.push_back(vec_maxtrix[y].front());	
+				vec_maxtrix[y].erase(vec_maxtrix[y].begin());
+			}
+			ret[x] = tmpr;
+		}
+	}
+	else if(flag == 0){
+		for(int t = 0;t < n ;t++){
+			vector<int> tmpl;
+			for(int k = 0;k < m;k++){
+				tmpl.push_back(vec_maxtrix[k].back());
+				vec_maxtrix[k].pop_back();
+			}
+			ret[t] = tmpl;
+		}
+	}
+	for(int e = 0;e < n;e++){
+		for(int w = 0;w < m;w++){
+			res[e][w] = ret[e][w];
+		}
+	}
+	return res;
+}
